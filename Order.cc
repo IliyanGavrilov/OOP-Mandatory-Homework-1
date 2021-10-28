@@ -2,13 +2,11 @@
 #include <string>
 #include "Order.hh"
 
-using namespace std;
-
 Order::Order()
 {
     Order("", "", -1, -1);
 }
-Order::Order(string part, string serialNum, int quantity, int deadline)
+Order::Order(std::string part, std::string serialNum, int quantity, int deadline)
 {
     this->part = part;
     this->serialNum = serialNum;
@@ -16,22 +14,22 @@ Order::Order(string part, string serialNum, int quantity, int deadline)
     this->deadline = deadline;
 }
 
-string Order::getPart()
+std::string Order::getPart()
 {
     return part;
 }
 
-void Order::setPart(string part)
+void Order::setPart(std::string part)
 {
     this->part = part;
 }
 
-string Order::getSerialNum()
+std::string Order::getSerialNum()
 {
     return serialNum;
 }
 
-void Order::setSerialNum(string serialNum)
+void Order::setSerialNum(std::string serialNum)
 {
     this->serialNum = serialNum;
 }

@@ -6,9 +6,7 @@
 #include "Order.hh"
 #include "System.hh"
 
-using namespace std;
-
-System::System(vector <Order> c, int maxParts)
+System::System(std::vector <Order> c, int maxParts)
 {
     this->collection = c;
     this->maxParts = maxParts;
@@ -23,12 +21,12 @@ System::System()
     this->lastOrderDeadline = 0;
 }
 
-vector <Order> System::getCollection()
+std::vector <Order> System::getCollection()
 {
     return collection;
 }
 
-void System::setCollection(vector <Order> collection)
+void System::setCollection(std::vector <Order> collection)
 {
     this->collection = collection;
 }
@@ -86,11 +84,11 @@ void System::print_orders()
     }
     for(int i = 0;i<size_c; i++)
     {
-        cout << "Order #" << i+1 << ":" << endl;
-        cout << "Part = " << collection[i].getPart() << endl;
-        cout << "Serial Number = " << collection[i].getSerialNum() << endl;
-        cout << "Quantity = " << collection[i].getQuantity() << endl;
-        cout << "Deadline = " << collection[i].getDeadline() << endl;
+        std::cout << "Order #" << i+1 << ":" << std::endl;
+        std::cout << "Part = " << collection[i].getPart() << std::endl;
+        std::cout << "Serial Number = " << collection[i].getSerialNum() << std::endl;
+        std::cout << "Quantity = " << collection[i].getQuantity() << std::endl;
+        std::cout << "Deadline = " << collection[i].getDeadline() << std::endl;
     }
 
     int finish_orders = currParts/maxParts;
@@ -99,22 +97,22 @@ void System::print_orders()
         finish_orders = 1;
     }
 
-    cout << "\nAll parts count: " << currParts << endl;
-    cout << "Deadline for all current orders: " << lastOrderDeadline << endl;
+    std::cout << "\nAll parts count: " << currParts << std::endl;
+    std::cout << "Deadline for all current orders: " << lastOrderDeadline << std::endl;
     if(lastOrderDeadline >= finish_orders)
     {
-        cout << "Last order will finished early by " << lastOrderDeadline - finish_orders << " days" << endl;
+        std::cout << "Last order will finished early by " << lastOrderDeadline - finish_orders << " days" << std::endl;
     }
     else
     {
-        cout << "We're running late by " << finish_orders - lastOrderDeadline << " days" << endl;
+        std::cout << "We're running late by " << finish_orders - lastOrderDeadline << " days" << std::endl;
     }
 }
 
 void System::save_to_file(char* filename)
 {
     int size_c = collection.size();
-    ofstream file(filename, ios::app);
+    std::ofstream file(filename, std::ios::app);
     if (file.is_open())
     {
         for(int i = 0;i<size_c;i++)
@@ -122,7 +120,7 @@ void System::save_to_file(char* filename)
             file << collection[i].getPart() << ", ";
             file << collection[i].getSerialNum() << ", ";
             file << collection[i].getQuantity() << ", ";
-            file << collection[i].getDeadline() << endl;
+            file << collection[i].getDeadline() << std::endl;
         }
 
         file.close();
@@ -135,25 +133,25 @@ void System::save_to_file(char* filename)
 
 void System::load_from_file(char* filename)
 {
-    ifstream file(filename);
-    if(file.peek() == ifstream::traits_type::eof())
+    std::ifstream file(filename);
+    if(file.peek() == std::ifstream::traits_type::eof())
     {
         throw 3;
     }
 
     if (file.is_open())
     {
-        string line;
+        std::string line;
         while(getline(file, line))
         {
-            vector <string> v;
-            stringstream ss(line);
+            std::vector <std::string> v;
+            std::stringstream ss(line);
             while(getline(ss, line, ','))
             {
                 v.push_back(line);
             }
-            string part = v[0];
-            string serialNum = v[1];
+            std::string part = v[0];
+            std::string serialNum = v[1];
             int quantity = stoi(v[2]);
             int deadline = stoi(v[3]);
 
